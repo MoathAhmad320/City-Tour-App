@@ -33,7 +33,7 @@ class Register extends Component{
 
     render(){
         return(
-            <div>
+            <div className='login-page'>
                 <h1>Create Account</h1>
                 <label class="sr-only">Username</label>
                 <input
@@ -68,7 +68,14 @@ class Register extends Component{
                     required
                 />
                 <Link to="/login">Have an account?</Link>
-                <button type="submit" onClick={this.handleSubmit}>Sign in</button>
+                <button type="submit" className="login-button" onClick={this.handleSubmit}>
+                <div>
+                        <span className="arrow"></span>
+                        <span className="arrow"></span>
+                        <span className="arrow"></span>
+                        <span className="arrow"></span>
+                    </div>
+                    </button>
             </div>
         )
     }

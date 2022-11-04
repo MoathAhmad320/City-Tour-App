@@ -1,0 +1,107 @@
+/* I know you are not supposed to do this but I created this file just so it didnt look messy and since we might not even keep most of this stuff */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+
+body {
+    color: #e3e3e3;
+    background-image: url("./assets/random-map.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #cccccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Nunito', sans-serif;
+}
+
+.login-page {
+    margin: auto;
+    width: 80vh;
+    height: 80vh;
+    background: #222831;
+    border-radius: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15%;
+}
+
+.login-button {
+    right: 5%;
+    background: none;
+    opacity: 0.2;
+    position: relative;
+    width: 40%;
+    height: 40%;
+    transform: rotate(90deg);
+    padding-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    gap: 1px;
+}
+
+
+.arrow {
+    z-index: 999;
+    height: 41%;
+    margin: 7px;
+    width: 21px;
+    background: white;
+    transition: 0.4s ease;
+}
+
+.arrow:first-child {
+    display: inline-block;
+    position: absolute;
+    transform: rotate(45deg);
+    left: 25%;
+    right: 25%;
+    bottom: 35%;
+}
+
+.arrow:nth-child(2) {
+    display: inline-block;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 45%;
+    right: 45%;
+    bottom: 35%;
+}
+
+.arrow:nth-child(3) {
+    display: inline-block;
+    position: absolute;
+    transform: rotate(45deg);
+    left: 25%;
+    right: 25%;
+    bottom: 54%;
+}
+
+.arrow:nth-child(4) {
+    display: inline-block;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 45%;
+    right: 45%;
+    bottom: 54%;
+}
+
+.login-button:hover .arrow:nth-child(1) {
+    transform: rotate(-135deg);
+}
+
+.login-button:hover .arrow:nth-child(2) {
+    transform: rotate(135deg);
+}
+
+.login-button:hover .arrow:nth-child(3) {
+    transform: rotate(225deg);
+}
+
+.login-button:hover .arrow:nth-child(4) {
+    transform: rotate(-225deg);
+}
