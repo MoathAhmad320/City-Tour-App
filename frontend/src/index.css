@@ -14,7 +14,6 @@ code {
 
 
 .home-page{
-  
   display: grid;
   justify-content: center;
   grid-template-columns: 1fr 1fr 1fr;
@@ -22,15 +21,7 @@ code {
   ". home ."
   "map map map"
   "list list list"
-
 }
-
-.map-holder{
-  height: 300px;
-  border: 5px solid gray;
-  margin: 10px;
-  grid-area: map
-  }
 
   .home-header{
     grid-area: home;
@@ -39,10 +30,42 @@ code {
   }
 
   .map-list{    
-  height: 150px;
-  border: 5px solid gray;
-  margin: 10px;
+    height: 150px;
+    border: 5px solid gray;
+    margin: 10px;
     grid-area: list;
   }
+  .info-panel{
+    display: flex;
+    border: 5px solid gray;
+    height: 600px;
+    width: 900px;
+    grid-area: map;
+    justify-content: end;
+    
+  }
+  
+  .map-holder{
+    height: 95%;
+    width: 300px;
+    border: 5px solid gray;
+    margin: 10px
+  
+  }
 
+  .map-thing{
+    width: 100%;
+    height: 100%;
+  }
+.start-text{
+  width: 100px;
+  height: 25px;
+  margin: 5px;
+}
+
+.reset-button{
+  height: 50px;
+  margin: 5px;
+  
+}
   
