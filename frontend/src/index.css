@@ -38,10 +38,21 @@ code {
   .info-panel{
     display: flex;
     border: 5px solid gray;
-    height: 600px;
+    justify-content: end;
+    
+  }
+  .search-section{
+    display: flex;
+    border: 5px solid gray;
+    height: 700px;
     width: 900px;
     grid-area: map;
     justify-content: end;
+  }
+  .outer-info-panel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     
   }
   
@@ -69,3 +80,27 @@ code {
   
 }
   
+
+.landmark-card {
+  width: 300px;
+  font-size: 18px;
+  flex: 0 0 auto;         
+  display: flex;          
+  flex-direction: column; 
+  position: relative;
+  background: rgb(0, 0, 0);
+}
+
+.card-image {
+  width: 100%;
+  border-radius: 9px;
+  margin-bottom: 9px;
+}
+.card-buttons{
+  display: flex;
+
+}
+
+.card-text{
+  background: rgba(0, 0, 0, 0)
+}
