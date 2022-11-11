@@ -6,6 +6,7 @@ import {GoogleMap,
      Autocomplete,
     DirectionsRenderer} from "@react-google-maps/api";
 import React from 'react';
+import Landmark from '../Landmark/Landmark';
 
 
 
@@ -70,21 +71,25 @@ async function calculateRoute(){
     return(
         <div className = "home-page">
             <h1 className='home-header'>Home</h1>
-
-        <div className = "info-panel">
-            <Autocomplete>
-            
-            <input placeholder='start' className = "start-text" ref = {startRef} onClick = {(address) => console.log(address)}/>
-            </Autocomplete>
-            <Autocomplete>
-            
-            <input placeholder='middle' className = "start-text" ref = {waypointsRef}/>
-            </Autocomplete>
-            <Autocomplete>
-            <input placeholder='end' className = "start-text" ref = {endRef}/>
-            </Autocomplete>
-            <button className = "reset-button" onClick = {() => map.panTo(center)}>Center Map</button>
-           <button className = "reset-button" onClick = {calculateRoute}>Create Route</button>
+            <div className='search-section'>
+                <div className='outer-info-panel'>
+                    <div className = "info-panel">
+                        <Autocomplete>
+                        
+                        <input placeholder='start' className = "start-text" ref = {startRef} onClick = {(address) => console.log(address)}/>
+                        </Autocomplete>
+                        <Autocomplete>
+                        
+                        <input placeholder='middle' className = "start-text" ref = {waypointsRef}/>
+                        </Autocomplete>
+                        <Autocomplete>
+                        <input placeholder='end' className = "start-text" ref = {endRef}/>
+                        </Autocomplete>
+                        <button className = "reset-button" onClick = {() => map.panTo(center)}>Center Map</button>
+                    <button className = "reset-button" onClick = {calculateRoute}>Create Route</button>
+                    </div>
+                    <Landmark/>
+                </div>
             <div className = "map-holder">
                 <GoogleMap
                     zoom = {10}
@@ -106,7 +111,7 @@ async function calculateRoute(){
                     {markers.map(marker => <Marker key = {marker.time.toISOString()}position = {{lat: marker.lat, lng: marker.lng}}/>)}
                     {directionsResponse && <DirectionsRenderer directions = {directionsResponse}/>}
                 </GoogleMap>
-            </div>
+        </div>
         </div>
 
 
