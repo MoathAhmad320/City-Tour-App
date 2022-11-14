@@ -3,6 +3,8 @@ import {Switch, Route, Redirect, Link} from 'react-router-dom'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import Home from '../Home/Home'
+import MyTrips from '../MyTrips/MyTrips'
+import Header from '../Header/Header'
 import {addToken, deleteUser} from '../../Redux/actionCreators'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
@@ -32,25 +34,25 @@ class Main extends Component {
     render(){
         return(
             <div>
+                
                 {this.props.token.token !== undefined ?
                         <div>
-                            <Link to='/home'>Home | </Link>
-                            <Link to='/login' onClick={this.handleLogout}>logout</Link> 
+                            <Header handleClick={this.handleLogout}/> 
                             <Redirect to='/home'/>
-
                         </div>  
                     : 
-                        <Link to='/login'>Home | </Link>
+                    <Header handleClick={this.handleLogout}/> 
                 }
                 <Switch>
                     <Route path='/login' component={() => <Login/>}/>
                     <Route path='/register'component={() => <Register/>}/>
-                    <Route path='/home' component={this.props.token.token !== undefined ? () => <Home/> : null}/>
+                    <Route path='/home' component={() => <Home/>}/>
+                    <Route path='/mytrips' component={() => <MyTrips/>}/>
                     <Redirect to='/login'/>
                 </Switch>
             </div>
         )
     }
 } 
-
+// this.props.token.token !== undefined ? () => <Home/> : null
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

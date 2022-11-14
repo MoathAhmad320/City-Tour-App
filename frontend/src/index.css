@@ -23,11 +23,21 @@ code {
   "list list list"
 }
 
-  .home-header{
-    grid-area: home;
-    text-align: center;
-    
+  .header{
+  display: flex;
+  height: 50px;
+
   }
+  .header-link-box{
+    display: flex;
+    align-items: center;
+    margin-right: 20%;
+  }
+  .links{
+    margin:10px;
+    padding: 10px;
+  }
+
 
   .map-list{    
     height: 150px;
@@ -35,12 +45,18 @@ code {
     margin: 10px;
     grid-area: list;
   }
-  .info-panel{
+
+  .combobox-input{
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  /* .info-panel{
     display: flex;
     border: 5px solid gray;
     justify-content: end;
     
-  }
+  } */
   .search-section{
     display: flex;
     border: 5px solid gray;
@@ -49,12 +65,34 @@ code {
     grid-area: map;
     justify-content: end;
   }
-  .outer-info-panel{
+  /* .outer-info-panel{
     display: flex;
     flex-direction: column;
     align-items: center;
     
+  } */
+
+  /* new addtions */
+  .container{
+    display: flex;
+    height: 100vh;
   }
+
+  .controls{
+    width: 35%;
+    padding: 1rem;
+  }
+
+  
+  .map{
+    width: 65%;
+    height: 100vh;
+  }
+  .map-container{
+    width: 100%;
+    height: 100vh;
+  }
+  /* new additions */
   
   .map-holder{
     height: 95%;
@@ -87,7 +125,6 @@ code {
   flex: 0 0 auto;         
   display: flex;          
   flex-direction: column; 
-  position: relative;
   background: rgb(0, 0, 0);
 }
 
