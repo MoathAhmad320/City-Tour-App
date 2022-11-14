@@ -6,6 +6,7 @@ import { addToken, addUser } from '../../Redux/actionCreators'
 import { baseUrl } from '../../Shared/baseUrl'
 import axios from 'axios'
 import "../../login.css"
+import Header from '../Header/Header'
 
 
 
@@ -82,6 +83,7 @@ class Login extends Component {
                 </button>
 
             </div>
+        
         )
     }
 }

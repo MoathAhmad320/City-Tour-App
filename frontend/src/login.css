@@ -8,11 +8,11 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #cccccc;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-family: 'Nunito', sans-serif;
+    justify-content: center; */
+    font-family: 'Nunito', sans-serif; 
 }
 
 .login-page {
