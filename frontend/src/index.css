@@ -141,3 +141,7 @@ code {
 .card-text{
   background: rgba(0, 0, 0, 0)
 }
+
+.toggle-switches{
+  display: grid;
+}

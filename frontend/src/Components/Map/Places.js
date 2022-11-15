@@ -3,6 +3,8 @@ import {Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption} 
 import "@reach/combobox/styles.css"
 import Landmark from "../Landmark/Landmark";
 import { useState } from "react";
+import ToggleSwitch from '../ToggleSwitch/ToggleSwtich';
+import DatePicker from "react-datepicker"
 
 export default function Places(props){
     const [landmarkName, setLandmarkName] = useState();
@@ -11,6 +13,12 @@ export default function Places(props){
     const [landmarkPic, setLandmarkPic] = useState();
     const [landmarkDescription, setLandmarkDescription] = useState();
     const [landmarkAvailability, setLandmarkAvailability] = useState();
+    
+    const [date, setDate] = useState(new Date());
+
+
+
+
 
 
     const {
@@ -76,6 +84,13 @@ export default function Places(props){
             <button className = "reset-button" onClick = {props.handleCenterClick}>Center Map</button>
             <button className = "reset-button" onClick={props.setStartingPoint}>Set As Starting Point</button>
             <button className = "reset-button" onClick = {props.handleStartingClick}>Starting Point</button>
+                        <div className = "toggle-switches">
+                        <ToggleSwitch/>
+                        <ToggleSwitch/>
+                        <ToggleSwitch/>
+                        <ToggleSwitch/>
+                        <DatePicker selected={date} onChange={date => setDate(date)} />
+                        </div>
             <Landmark 
             name = {landmarkName} 
             address = {landmarkAddress} 
