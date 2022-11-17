@@ -85,10 +85,11 @@ export default function Places(props){
             <button className = "reset-button" onClick={props.setStartingPoint}>Set As Starting Point</button>
             <button className = "reset-button" onClick = {props.handleStartingClick}>Starting Point</button>
                         <div className = "toggle-switches">
-                        <ToggleSwitch/>
-                        <ToggleSwitch/>
-                        <ToggleSwitch/>
-                        <ToggleSwitch/>
+                        
+                        <ToggleSwitch type = "FOOD"/>
+                        <ToggleSwitch type = "MUSEUMS"/>
+                        <ToggleSwitch type = "PARKS"/>
+                        <ToggleSwitch type = "STORES"/>
                         <DatePicker selected={date} onChange={date => setDate(date)} />
                         </div>
             <Landmark 
