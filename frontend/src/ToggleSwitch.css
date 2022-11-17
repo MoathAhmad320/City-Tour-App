@@ -37,3 +37,13 @@
 .toggle-switch input[type="checkbox"]:checked + .switch {
   background-color: #098812;
 }
+
+.switch-label{
+  font-size: larger;
+  font-weight: bold;
+ color: rgb(218, 212, 217);
+}
+
+.switch-background{
+  background-color: black;
+}

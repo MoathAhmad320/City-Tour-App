@@ -145,3 +145,61 @@ code {
 .toggle-switches{
   display: grid;
 }
+
+/* ADDED FOR TRIPS COMPONENT */
+
+.trips-outer-container{
+  background-color: black;
+display: grid;
+;
+}
+
+.trips-inner-container{
+  background-color: white;
+  margin:3px;
+display: inline-block;
+
+}
+
+.trips-header{
+  background-color: blue;
+  margin:3px;
+  justify-self: center;
+  display: inline-block
+}
+
+.directions-outer-container{
+  
+  margin:3px;
+  display: flex;
+  background-color: gray;
+  width: 100%;
+  justify-content: space-around;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "written map places"
+}
+
+.directions-inner-container{
+  color: black;
+  display: flex;
+  grid-area: written;
+  background-color: aqua;
+}
+
+.directions-map-container{
+  color: black;
+  background-color: aqua;
+  display: flex;
+  grid-area: map;
+}
+
+.places-outer-container{
+  color: black;
+  background-color: aqua;
+  display: flex;
+  grid-area: places;
+}
+
+.places-inner-container{
+  display: flex;
+}
