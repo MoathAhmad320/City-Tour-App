@@ -1,5 +1,7 @@
-import React, {useState, useMemo, useCallback, useRef} from "react";
-import { GoogleMap, Marker, Autocomplete, InfoWindow, useLoadScript, DirectionsRenderer, Circle, MarkerClusterer } from "@react-google-maps/api";
+import React, {useState, useEffect, useMemo, useCallback, useRef} from "react";
+import { GoogleMap, Marker, useLoadScript
+  // , Autocomplete, InfoWindow, DirectionsRenderer, Circle, MarkerClusterer 
+} from "@react-google-maps/api";
 import Places from "./Places";
 
 // let LatLngLiteral = window.google.maps.LatLngLiteral;
@@ -10,32 +12,36 @@ import Places from "./Places";
 
 
 export default function SearchMap(props) {
+
+  const [longitude, setLongitude] = useState();
+  const [latitude, setLatitude] = useState()
+  
   const [selectedPoint, setSelectedPoint] = useState();
   const [startingPoint, setStartingPoint] = useState();
   const[markerPosition, setMarkerPosition] = useState(selectedPoint);
   const [map, setMap] = useState();
   const mapRef = useRef();
-  const center =useMemo(() => ({lat:43, lng: -80}),[]);
+  const center = useMemo(() => ({lat: latitude, lng: longitude}),[longitude]);
   const onLoad = useCallback((map) => (mapRef.current = map, setMap(map)),[]);
 
 
+//Setting map to user's current location
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      setLatitude(pos.coords.latitude);
+      setLongitude(pos.coords.longitude);
+     });
+  })
+  
 
-// const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${selectedPoint.lat}%${selectedPoint.lng}&radius=5000&type=restaurant&keyword=cafe&key=AIzaSyDFuFtVTMN3kHm2IOr9oMW20l8HwvnhAEY`;
-
-// fetch(url)
-// .then(function (response) {
-//   console.log(JSON.stringify(response.data));
-// })
-// .catch(function (error) {
-//   console.log(error);
-// });
 
 
  function panToCenter() { map.panTo(selectedPoint);
                           setMarkerPosition(selectedPoint)}
 
  function panToStarting() { map.panTo(startingPoint);
-                            setMarkerPosition(startingPoint)}
+                            setMarkerPosition(startingPoint)
+                          }
 
  function setStartingClick(){setStartingPoint(selectedPoint);
                               console.log(startingPoint)}
