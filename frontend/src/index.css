@@ -79,13 +79,13 @@ code {
   }
 
   .controls{
-    width: 35%;
+    width: 50%;
     padding: 1rem;
   }
 
   
   .map{
-    width: 65%;
+    width: 50%;
     height: 100vh;
   }
   .map-container{
@@ -117,7 +117,10 @@ code {
   margin: 5px;
   
 }
-  
+
+.searchButtonsBox{
+  display: flex;
+}
 
 .landmark-card {
   width: 300px;

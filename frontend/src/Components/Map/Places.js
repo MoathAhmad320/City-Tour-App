@@ -5,6 +5,7 @@ import Landmark from "../Landmark/Landmark";
 import { useState } from "react";
 import ToggleSwitch from '../ToggleSwitch/ToggleSwtich';
 import DatePicker from "react-datepicker"
+import NearByPlaces from "./NearByPlaces/NearByPlaces";
 
 export default function Places(props){
     const [landmarkName, setLandmarkName] = useState();
@@ -13,13 +14,9 @@ export default function Places(props){
     const [landmarkPic, setLandmarkPic] = useState();
     const [landmarkDescription, setLandmarkDescription] = useState();
     const [landmarkAvailability, setLandmarkAvailability] = useState();
+    const [selectedValue, setSelectedValue] = useState();
     
     const [date, setDate] = useState(new Date());
-
-
-
-
-
 
     const {
         ready, 
@@ -38,11 +35,12 @@ export default function Places(props){
         const {lat, lng} = await getLatLng(results[0]);                              
         props.setSelectedPoint({lat, lng});
         props.setMarker({lat, lng});
-       submit();
+         submit();
+       setSelectedValue({lat, lng});
     }
 
     const submit = () => {
-        const parameter = {
+                const parameter = {
           placeId :data[0].place_id,
       fields: ["name", "types", "formatted_address", "opening_hours", "photos"],
         };
@@ -81,10 +79,14 @@ export default function Places(props){
                     </ComboboxList>
                 </ComboboxPopover>
             </Combobox>
+            <div className="searchButtonsBox">
+            <NearByPlaces selected={selectedValue} map={props.map}/>
+            <div>
             <button className = "reset-button" onClick = {props.handleCenterClick}>Center Map</button>
             <button className = "reset-button" onClick={props.setStartingPoint}>Set As Starting Point</button>
-            <button className = "reset-button" onClick = {props.handleStartingClick}>Starting Point</button>
-                        <div className = "toggle-switches">
+            <button className = "reset-button" onClick = {props.handleStartingClick}>Starting Point</button> 
+            
+                       <div className = "toggle-switches">
                         
                         <ToggleSwitch type = "FOOD"/>
                         <ToggleSwitch type = "MUSEUMS"/>
@@ -99,6 +101,8 @@ export default function Places(props){
             pic = {landmarkPic}
             availability = {landmarkAvailability}
             />
+            </div>
+            </div> 
         </div>
     )
 }

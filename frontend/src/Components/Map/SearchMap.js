@@ -61,10 +61,11 @@ export default function SearchMap(props) {
 
   return (
     <div className="container">
-              <NearByPlaces map={map} />
+              {/* <NearByPlaces map={map} /> */}
 
       <div className="controls">
         <Places
+        map={map}
           handleCenterClick={panToCenter}
           handleStartingClick={panToStarting}
           setStartingPoint={setStartingClick}

@@ -3,13 +3,14 @@ import AutoComplete from '../AutoComplete';
 import { TypesArr } from './Types';
 import { NearByDiv, NearbyLi } from './PlaceElement';
 
-
-
-
 export default function NearByPlaces(props) {
   const { map } = props
   const [placesNearByArr, setPlacesNearByArr] = useState(/**type @Array */ [])
   const [placeToRequest, setPlaceToRequest] = useState( )
+
+  function searchNearbyButton() {
+    setPlaceToRequest(props.selected)
+  }
 
   function search() {
     let request = {
@@ -22,6 +23,7 @@ export default function NearByPlaces(props) {
     let service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback);
   }
+  
   function callback(results, status) {
     //eslint-disable-next-line no-undef
     if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -37,20 +39,25 @@ export default function NearByPlaces(props) {
   }, [placeToRequest])
 
   return (
+
     <NearByDiv>
-      <AutoComplete changeLocationSelected={setPlaceToRequest} />
+      
+      <button className = "reset-button" onClick = {searchNearbyButton}>Search Nearby</button>
+      {/* <AutoComplete changeLocationSelected={setPlaceToRequest} /> */}
       <ul>
+        
       { 
       Object.keys(placesNearByArr).map((place, i) => (
           <NearbyLi key={i}>
               
               <img src={placesNearByArr[place].icon} width='8%' height='3%'/>
               { placesNearByArr[place].name }
-              <img src={placesNearByArr[place].photos[0].getUrl()} width='50%'/>
+              <img src={placesNearByArr[place].photos[0].getUrl()} width='50%' />
           </NearbyLi>
-      ))
+      )) 
   }  
       </ul>
+    
     </NearByDiv>
   )
 }

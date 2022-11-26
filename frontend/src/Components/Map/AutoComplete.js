@@ -31,6 +31,7 @@ const AutoComplete = ({changeLocationSelected}) => {
    <label>Reference Point:</label>
    <input ref={inputRef}/>
   </div>
+  
  );
 };
 export default AutoComplete;
