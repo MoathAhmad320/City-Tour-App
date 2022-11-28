@@ -152,37 +152,50 @@ code {
 /* ADDED FOR TRIPS COMPONENT */
 
 .trips-outer-container{
-  background-color: black;
+  
+  height: 100vh;
 display: grid;
+justify-content: center;
+grid-template-columns: 1fr;
+grid-template-rows: 1fr 4fr;
+grid-template-areas: "header"
+                      "inner"
 ;
 }
 
 .trips-inner-container{
   background-color: white;
   margin:3px;
-display: inline-block;
+  grid-area: inner;
+  justify-content: center;
+  display: flex;
+
 
 }
 
 .trips-header{
   background-color: blue;
+  height: fit-content;
   margin:3px;
   justify-self: center;
-  display: inline-block
+  display: inline-block;
+  grid-area: header;
 }
 
 .directions-outer-container{
   
-  margin:3px;
+  margin:5px;
   display: flex;
   background-color: gray;
-  width: 100%;
+  width: 98%;
   justify-content: space-around;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: "written map places"
 }
 
 .directions-inner-container{
+  margin: 5px;
+  width: 100%;
   color: black;
   display: flex;
   grid-area: written;
@@ -190,6 +203,8 @@ display: inline-block;
 }
 
 .directions-map-container{
+  margin: 5px;
+  width: 100%;
   color: black;
   background-color: aqua;
   display: flex;
@@ -197,6 +212,8 @@ display: inline-block;
 }
 
 .places-outer-container{
+  margin: 5px;
+  width: 100%;
   color: black;
   background-color: aqua;
   display: flex;
