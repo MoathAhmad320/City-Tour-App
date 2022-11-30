@@ -1,3 +1,32 @@
+import { useState } from 'react';
+import Multiselect from 'multiselect-react-dropdown';
+
+
+export default function Types({selectedList,setSelectedList}){
+
+function onSelect(selectedList, selectedItem) {
+    setSelectedList(selectedList);
+}
+
+function onRemove(selectedList, removedItem) {
+    setSelectedList(selectedList)
+
+}
+
+return(
+
+<Multiselect
+  isObject={false}
+  onKeyPressFn={function noRefCheck(){}}
+  onRemove={onRemove}
+  onSearch={function noRefCheck(){}}
+  onSelect={onSelect}
+  options={Object.values(TypesArr)}
+  selectedValues={selectedList}
+/>)
+
+}
+
 export const TypesArr = {
 ACCOUNTING:'accounting',
 AIRPORT:'airport',
