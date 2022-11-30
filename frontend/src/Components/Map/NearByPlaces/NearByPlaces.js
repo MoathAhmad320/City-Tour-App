@@ -49,14 +49,15 @@ export default function NearByPlaces(props) {
       { 
       Object.keys(placesNearByArr).map((place, i) => (
           <NearbyLi key={i}>
-              
+              <button onClick={()=>props.searchResultButton(placesNearByArr[place])}>See Landmark details</button>
               <img src={placesNearByArr[place].icon} width='8%' height='3%'/>
               { placesNearByArr[place].name }
-              <img src={placesNearByArr[place].photos[0].getUrl()} width='50%' />
+              {/* <img src={placesNearByArr[place].photos[0].getUrl()} width='50%' /> */}
           </NearbyLi>
       )) 
   }  
       </ul>
+      
     
     </NearByDiv>
   )

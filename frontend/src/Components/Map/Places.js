@@ -137,6 +137,20 @@ if(renderLandmark){
             console.log("Error: ", error);
           });
       };
+
+      function searchResultButton(place){
+        const parameter = {
+          placeId :place.place_id,
+      fields: ["name", "types", "formatted_address", "opening_hours", "photos"],
+        };
+        getDetails(parameter)
+          .then((details) => {
+            setLandmarkName(details.name)
+            setlandmarkAddress(details.formatted_address)
+            setLandmarkType(details.types.join(", "))
+            setLandmarkAvailability(details.opening_hours.weekday_text.join(", "))
+            setLandmarkPic(details.photos[0].getUrl())})
+      }
     
 
     return(
@@ -159,7 +173,7 @@ if(renderLandmark){
                 </ComboboxPopover>
             </Combobox>
             <div className="searchButtonsBox">
-            <NearByPlaces selected={selectedValue} map={props.map}/>
+            <NearByPlaces selected={selectedValue} map={props.map} searchResultButton={searchResultButton}/>
             <div>
             <button className = "reset-button" onClick = {props.handleCenterClick}>Center Map</button>
             <button className = "reset-button" onClick={props.setStartingPoint}>Set As Starting Point</button>
