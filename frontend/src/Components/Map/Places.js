@@ -23,59 +23,83 @@ export default function Places(props){
     const[currentItin, setCurrentItin] = useState(null)
     const [landmarkId, setLandmarkId] = useState(null)
     const [renderLandmark, setRenderLandmark] = useState(false)
-    const API_BASE = "http://localhost:8080/";
-    const API_LANDMARKS = '/landmarks/'
+    const API_BASE = "http://localhost:8081/";
+    const API_LANDMARKS = 'landmarks/'
+    const API_ADDLANDMARK = 'addLandmark'
+    const API_ITINERARY = 'itineraries/'
 
-    //does put or post depending on if it exists
+
+    //does put or post depending on if it existsx
     function sendLandmark() {
-        let landmarkObject = {
-                             image:null,
-                             name:null,
-                             address:null,
-                             type:null,
-                             description:null,
-                             availability:null,
+      let landmarkObject;
+       if(landmarkId === null){
+        landmarkObject = {
+          image:landmarkPic,
+          landmarkName: landmarkName,
+          address:landmarkAddress,
+          type:landmarkType,
+          description:"a place",
+          availability:null,
+              }
+       const requestOptions = {
+         method:'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify(landmarkObject)
+       };
+   
+       let returnId = fetch(API_BASE + API_LANDMARKS, requestOptions)
+         .then(res => res.json())
+         .then(setLandmarkId(returnId))
+         }
+
+       else{
+           landmarkObject = {
+                               id: landmarkId,
+                               image:landmarkPic,
+                               landmarkName: landmarkName,
+                               address:landmarkAddress,
+                               type:landmarkType,
+                               description:landmarkDescription,
+                               availability:null,
+                           }
+
+               const requestOptions = {
+                 method:'PUT',
+                 headers: { 'Content-Type': 'application/json' },
+                 body: JSON.stringify(landmarkObject)
+               };
+           
+               fetch(API_BASE + API_LANDMARKS + landmarkId, requestOptions)
+                 .then(res => res.json())
+       }
+       }
+
+       function addLandmarkToItinerary(itineraryId) {
+        let landmarkToItin = {
+                             itineraryId:itineraryId,
+                             landmarkId:landmarkId
                                  }
-         if(landmarkId === null){
+    
          const requestOptions = {
            method:'POST',
            headers: { 'Content-Type': 'application/json' },
-           body: JSON.stringify(landmarkObject)
+           body: JSON.stringify(landmarkToItin)
          };
      
-         let returnId = fetch(API_BASE + API_LANDMARKS, requestOptions)
+         fetch(API_BASE + API_ITINERARY + API_ADDLANDMARK, requestOptions)
            .then(res => res.json())
-           .then(setLandmarkId(returnId))
            }
- 
-         else{
-             landmarkObject = {
-                                 id: landmarkId,
-                                 image:null,
-                                 name:null,
-                                 address:null,
-                                 type:null,
-                                 description:null,
-                                 availability:null,
-                             }
- 
-                 const requestOptions = {
-                   method:'PUT',
-                   headers: { 'Content-Type': 'application/json' },
-                   body: JSON.stringify(landmarkObject)
-                 };
-             
-                 fetch(API_BASE + API_LANDMARKS + landmarkId, requestOptions)
-                   .then(res => res.json())
-         }
-         }
+          
+
+       
 
     function getLandmarks(itineraryId){
-            fetch(API_BASE + API_LANDMARKS + itineraryId)
+            fetch(API_BASE + "/itinerary/" + itineraryId)
             .then(res => res.json())
             .then(landmarks => {
                 setCurrentItin(landmarks);
-                setRenderLandmark(!renderLandmark);
+                setRenderLandmark(true);
+                
             }
         );
         }
@@ -152,6 +176,11 @@ if(renderLandmark){
             setLandmarkPic(details.photos[0].getUrl())})
       }
     
+      function handleStartingPoint(){
+        sendLandmark()
+        props.sendItinerary(date, landmarkId)
+        addLandmarkToItinerary(props.itineraryId)
+      }
 
     return(
         <div>
@@ -176,7 +205,7 @@ if(renderLandmark){
             <NearByPlaces selected={selectedValue} map={props.map} searchResultButton={searchResultButton}/>
             <div>
             <button className = "reset-button" onClick = {props.handleCenterClick}>Center Map</button>
-            <button className = "reset-button" onClick={props.setStartingPoint}>Set As Starting Point</button>
+            <button className = "reset-button" onClick = {handleStartingPoint}>Set As Starting Point</button>
             <button className = "reset-button" onClick = {props.handleStartingClick}>Starting Point</button> 
             
                        <div className = "toggle-switches">
@@ -187,13 +216,14 @@ if(renderLandmark){
                         <ToggleSwitch type = "STORES"/>
                         <DatePicker selected={date} onChange={date => setDate(date)} />
                         </div>
-            <Landmark 
+                            
+            {landmarkName && <Landmark 
             name = {landmarkName} 
             address = {landmarkAddress} 
             type ={landmarkType}
             pic = {landmarkPic}
             availability = {landmarkAvailability}
-            />
+            /> }
             </div>
             </div> 
         </div>

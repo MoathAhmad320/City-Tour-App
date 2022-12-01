@@ -4,9 +4,9 @@ import DropMenu from './DropMenu'
 import Landmark from "../Landmark/Landmark";
 import LandmarkStatus from "../Landmark/LandmarkStatus"
 export default function MyTrips(){
-    const API_BASE = "http://localhost:8080/";
+    const API_BASE = "http://localhost:8081/";
     const API_ITINERARY = 'itineraries/'
-    const API_LANDMARKS = '/landmarks/'
+    const API_LANDMARKS = 'landmarks/'
 
 
     
