@@ -5,6 +5,8 @@ import {
 } from "@react-google-maps/api";
 import Places from "./Places";
 import NearByPlaces from "./NearByPlaces/NearByPlaces";
+import Itinerary from "./Itinerary";
+import { object } from "prop-types";
 
 
 // let LatLngLiteral = window.google.maps.LatLngLiteral;
@@ -23,6 +25,8 @@ export default function SearchMap(props) {
   const mapRef = useRef();
   const center = useMemo(() => ({ lat: latitude, lng: longitude }), [longitude]);
   const onLoad = useCallback((map) => (mapRef.current = map, setMap(map)), []);
+  const [itineraryToRender, SetItineraryToRender] = useState(/**  type @Array */[])
+  const [listOfPlacesInRoute, setListOfPlacesInRoute] = useState(/** type @Array */[])
 
   const API_BASE = "http://localhost:8081/";
   const API_ITINERARY = 'itineraries/'
@@ -34,76 +38,100 @@ export default function SearchMap(props) {
 
   function sendItinerary(date, startingLandmarkId) {
     let itineraryObject = {
-                         date:date,
-                         userId:'1',
-                         startingLandmarkId: startingLandmarkId
-                             }
+      date: date,
+      userId: 1,
+      startingLandmarkId: startingLandmarkId
+    }
 
-     if(itineraryId === null){
-     const requestOptions = {
-       method:'POST',
-       headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify(itineraryObject)
-     };
- 
-     let returnId = fetch(API_BASE + API_ITINERARY, requestOptions)
-       .then(res => res.json())
-       .then(setItineraryId(returnId))
-       }
+    console.log(itineraryId)
 
-     else{
-        itineraryObject = {
-          date:date,
-          userId:null,
-          startingLandmarkId:startingLandmarkId
-                         }
+    if (itineraryId === null) {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(itineraryObject)
+      };
 
-             const requestOptions = {
-               method:'PUT',
-               headers: { 'Content-Type': 'application/json' },
-               body: JSON.stringify(itineraryObject)
-             };
-         
-             fetch(API_BASE + API_LANDMARKS + itineraryId, requestOptions)
-               .then(res => res.json())
-     }
-     }
-     
-     function getLandmarks(itineraryId){
-      fetch(API_BASE + API_LANDMARKS + itineraryId)
+      let returnId = fetch(API_BASE + API_ITINERARY, requestOptions)
+        .then(res => res.json())
+        .then(setItineraryId(returnId))
+    }
+
+    else {
+      itineraryObject = {
+        date: date,
+        userId: null,
+        startingLandmarkId: startingLandmarkId
+      }
+
+      const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(itineraryObject)
+      };
+
+      fetch(API_BASE + API_LANDMARKS + itineraryId, requestOptions)
+        .then(res => res.json())
+    }
+  }
+
+  function getLandmarks(itineraryId) {
+    fetch(API_BASE + API_LANDMARKS + itineraryId)
       .then(res => res.json())
       .then(landmarks => {
-        setAddresses((current) => [...current, {location: landmarks.address}])
+        setAddresses((current) => [...current, { location: landmarks.address }])
       }
-  );
+      );
   }
 
   let start;
   let end;
   let addressArray;
-    function handleAddress(){
-      let lastIndex = addresses.length() -1;
-      end = addresses[lastIndex];
-      start = addresses.shift();
-      setAddresses(addresses.pop())
-    }
-
-
-
-     async function calculateRoute(){
-      //eslint-disable-next-line no-undef
-      const directionService = new google.maps.DirectionsService();
-      const results = await directionService.route({
-          origin:start,
-          destination:end,
-          waypoints: addresses,
-          //eslint-disable-next-line no-undef
-          travelMode:google.maps.TravelMode.DRIVING,
-         
-      })
-      setDirectionsResponse(results)
+  function handleAddress() {
+    let lastIndex = addresses.length() - 1;
+    end = addresses[lastIndex];
+    start = addresses.shift();
+    setAddresses(addresses.pop())
   }
 
+
+  function routeHelper(list){
+
+    if (list.length<=2){
+      return {
+        origin: list[0],
+        destination: list[list.length-1]
+      }
+    }
+    else{
+      object = []
+
+      for (let i=1; i<list.length-1; i++){
+        object.push({location: list[i] })
+      }
+      
+      return{
+        origin: list[0],
+        destination: list[list.length-1],
+        waypoints: object
+      }
+
+    }
+  }
+
+  async function calculateRoute() {
+    //eslint-disable-next-line no-undef
+    const directionService = new google.maps.DirectionsService();
+    const results = await directionService.route({
+     ...routeHelper(listOfPlacesInRoute),
+      //eslint-disable-next-line no-undef
+      travelMode: google.maps.TravelMode.DRIVING,
+
+    })
+    setDirectionsResponse(results)
+  }
+
+  console.log(itineraryToRender)
   //Setting map to user's current location
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => {
@@ -137,11 +165,11 @@ export default function SearchMap(props) {
 
   return (
     <div className="container">
-              {/* <NearByPlaces map={map} /> */}
-             
+      {/* <NearByPlaces map={map} /> */}
+
       <div className="controls">
         <Places
-        map={map}
+          map={map}
           handleCenterClick={panToCenter}
           handleStartingClick={panToStarting}
           setStartingPoint={setStartingClick}
@@ -152,13 +180,20 @@ export default function SearchMap(props) {
           setMarker={(position) => {
             setMarkerPosition(position);
           }
-          } 
-          sendItinerary = {(date, startingLandmarkId) =>(sendItinerary(date, startingLandmarkId))}
-          itineraryId = {itineraryId}
-          />
-           <button className = "reset-button" onClick = {calculateRoute}>Create Route</button>
+          }
+          sendItinerary={
+            // (date, startingLandmarkId) => (
+            sendItinerary
+            // (date, startingLandmarkId))
+          }
+
+          itineraryId={itineraryId}
+          setList={SetItineraryToRender}
+          setListToCreateRoute={setListOfPlacesInRoute}
+        />
+        
       </div>
-      
+
       <div className="map">
         <GoogleMap
           zoom={10}
@@ -167,8 +202,12 @@ export default function SearchMap(props) {
           onLoad={onLoad}>
 
           <Marker position={markerPosition} />
-          {directionsResponse && <DirectionsRenderer directions = {directionsResponse}/>}
+          {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
         </GoogleMap>
+        <Itinerary 
+        list={itineraryToRender}
+        calculateRoute={calculateRoute}
+        />
 
       </div>
     </div>

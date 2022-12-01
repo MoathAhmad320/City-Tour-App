@@ -37,7 +37,6 @@ export default function NearByPlaces(props) {
 
   useEffect(() => {
     map && search();
-    console.log(placesNearByArr)
 
   }, [placeToRequest,typesSelectedList])
 
@@ -50,11 +49,12 @@ export default function NearByPlaces(props) {
       setSelectedList={setTypesSelectedList}/>
       <button className = "reset-button" onClick = {searchNearbyButton}>Search Nearby</button>
       {/* <AutoComplete changeLocationSelected={setPlaceToRequest} /> */}
-      <ul>
+      <ul className='List-nearby'>
         
       { 
       Object.keys(placesNearByArr).map((place, i) => (
-          <NearbyLi key={i}>
+        i<10 &&
+          <NearbyLi key={i} className="place-card">
               <button onClick={()=>props.searchResultButton(placesNearByArr[place])}>See Landmark details</button>
               <img src={placesNearByArr[place].icon} width='8%' height='3%'/>
               { placesNearByArr[place].name }
