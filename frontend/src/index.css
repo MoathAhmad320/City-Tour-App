@@ -26,6 +26,7 @@ code {
   .header{
   display: flex;
   height: 50px;
+  background-color: gray;
 
   }
   .header-link-box{
@@ -128,7 +129,22 @@ code {
   flex: 0 0 auto;         
   display: flex;          
   flex-direction: column; 
-  background: rgb(0, 0, 0);
+  background: white;
+  left: 5%;
+  color: black;
+  position: absolute;
+  border-radius: 15px;
+  padding: 2%;
+}
+.landmark-card button{
+  right: auto;
+  left: auto;
+}
+.react-datepicker__input-container{
+  position: absolute;
+  left: 10%;
+  top: 65px;
+  width: 300px
 }
 
 .card-image {
@@ -222,4 +238,53 @@ grid-template-areas: "header"
 
 .places-inner-container{
   display: flex;
+}
+.LandmarksListIcon{
+  position: absolute;
+  top: 150px;
+  right: 100px;
+  height: 100px;
+  width: 100px;
+  background-color: white;
+  border-radius: 100%;
+}
+.LandmarksListIcon > img{
+  height: 80px;
+  width: 80px
+}
+.LandmarksInRoute{
+  border-radius: 100%;
+  background-color: red;
+  position: fixed;
+  height: 40px;
+  width: 40px;
+  font-size: x-large;
+  font-weight: bold;
+  text-align: center;
+}
+.places-rendered{
+  border-radius: 20px;
+  position: fixed;
+  background-color: aliceblue;
+  height: 60vw;
+  width: 50vh;
+  top: 10%;
+  right: 20%;
+  left: 20%;
+  bottom: auto;
+  z-index: 999;
+  color: grey;
+}
+
+.place-card button{
+  
+  height: 5%;
+  background-color: none;
+  order: 3;
+}
+
+.List-nearby{
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: 50%;
 }
